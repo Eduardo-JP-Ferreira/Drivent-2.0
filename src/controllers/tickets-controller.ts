@@ -5,15 +5,22 @@ import TicketService from '@/services/tickets-service';
 
 export async function getTicketType(req: AuthenticatedRequest, res: Response) {
   // const { userId } = req;
-
   try {
     const type = await TicketService.getTicketType();
 
     return res.status(httpStatus.OK).send(type);
   } catch (error) {
-    console.log(error.message)
-    // return res.sendStatus(httpStatus.NO_CONTENT);
-    return res.sendStatus(204)
+    return res.sendStatus(httpStatus.NO_CONTENT);
   }
 }
 
+export async function getTicket(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req;
+  try {
+    const ticket = await TicketService.getTicket(userId);
+
+    return res.status(httpStatus.OK).send(ticket);
+  } catch (error) {
+    return res.sendStatus(httpStatus.NOT_FOUND);
+  }
+}
