@@ -30,7 +30,8 @@ export async function postPayment(req: AuthenticatedRequest, res: Response) {
   const { ticketId, cardData } = req.body;
 
   try {
-    if(!ticketId || ticketId===null || ticketId===undefined || !cardData|| cardData===null || cardData===undefined){
+    if(!ticketId || ticketId===null || ticketId===undefined ||
+       !cardData || cardData===null || cardData===undefined){
       return res.sendStatus(httpStatus.BAD_REQUEST)
     }
     const payment: ReturnPayment= await paymentService.postPayment(ticketId, cardData, userId);
@@ -40,6 +41,5 @@ export async function postPayment(req: AuthenticatedRequest, res: Response) {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
     return res.sendStatus(httpStatus.NOT_FOUND);
-    // return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }

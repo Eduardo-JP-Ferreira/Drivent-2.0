@@ -7,11 +7,6 @@ import paymentRepository from '@/repositories/payments-repository';
 import ticketRepository from '@/repositories/tickets-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 
-// async function getTicketType(): Promise<TicketType | {}> {
-//   const result = await ticketRepository.findTicketTypes();
-//   return result;
-// }
-
 async function getPayment(ticketId: number, userId: number): Promise<ReturnPayment> {
   const getEnrollmentId = await enrollmentRepository.findWithAddressByUserId(userId)
   if (!getEnrollmentId) throw notFoundError();
@@ -43,7 +38,6 @@ async function postPayment(ticketId: number, cardData: CardData, userId: number)
 const paymentService = {
   getPayment,
   postPayment,
-
 };
 
 export default paymentService;

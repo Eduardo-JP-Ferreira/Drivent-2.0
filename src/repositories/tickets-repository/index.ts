@@ -28,7 +28,6 @@ async function findTicketById(ticketId: number) {
   })
 }
 
-
 async function createTicket(ticketTypeId: number, enrollmentId: number) {
   return prisma.ticket.create({
     data: {
