@@ -50,10 +50,10 @@ export type CreateTicket = {
 };
 
 export type ReturnTicket = {
-  id: number;
-  status: string;
-  ticketTypeId: number;
-  enrollmentId: number;
+  id: number,
+  status: string,
+  ticketTypeId: number,
+  enrollmentId: number,
   TicketType: {
       id: number,
       name: string,
@@ -62,9 +62,9 @@ export type ReturnTicket = {
       includesHotel: boolean,
       createdAt: Date,
       updatedAt: Date,
-    };
-  createdAt: Date;
-  updatedAt: Date;
+    },
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 export type Ticket = {

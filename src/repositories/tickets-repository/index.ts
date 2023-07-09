@@ -6,21 +6,24 @@ async function findTicketTypes() {
   return prisma.ticketType.findMany();
 }
 
-async function findTicket(userId: number) {
+async function findTicket(enrollmentId: number) {
   const resultTicket = await prisma.ticket.findFirst({
     where: {
-      id: userId
+      enrollmentId,
     }
   })
+  if(!resultTicket) return null
   const resultType = await prisma.ticketType.findFirst({
     where:{
       id:  resultTicket.ticketTypeId
     }
   })
-  const status = String(resultTicket.status)
+  if(!resultType) return null
+
+  // const status: string = String(resultTicket.status)
   const result: ReturnTicket = {
     id: resultTicket.id,
-    status: status, 
+    status: resultTicket.status, 
     ticketTypeId: resultTicket.ticketTypeId,
     enrollmentId: resultTicket.enrollmentId,
     TicketType: {

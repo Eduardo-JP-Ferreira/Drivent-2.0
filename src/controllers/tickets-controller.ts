@@ -2,6 +2,7 @@ import { Response } from 'express';
 import httpStatus from 'http-status';
 import { AuthenticatedRequest } from '@/middlewares';
 import TicketService from '@/services/tickets-service';
+import { ReturnTicket } from '@/protocols';
 
 export async function getTicketType(req: AuthenticatedRequest, res: Response) {
   // const { userId } = req;
@@ -17,7 +18,7 @@ export async function getTicketType(req: AuthenticatedRequest, res: Response) {
 export async function getTicket(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   try {
-    const ticket = await TicketService.getTicket(userId);
+    const ticket: ReturnTicket= await TicketService.getTicket(userId);
 
     return res.status(httpStatus.OK).send(ticket);
   } catch (error) {
