@@ -10,6 +10,7 @@ export async function getPayment(req: AuthenticatedRequest, res: Response) {
   const { ticketId } = req.query as Record<string, string>;
   
   try {
+    if(!ticketId || ticketId===null || ticketId===undefined) return res.sendStatus(httpStatus.BAD_REQUEST)
     const id = Number(ticketId)
     const payment: ReturnPayment= await paymentService.getPayment(id, userId);
     return res.status(httpStatus.OK).send(payment);

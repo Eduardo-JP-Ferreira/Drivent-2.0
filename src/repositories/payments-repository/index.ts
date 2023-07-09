@@ -10,6 +10,17 @@ async function findPayment(ticketId: number) {
   })
 }
 
+async function changeStatus(ticketId: number) {
+  return await prisma.ticket.update({
+    where: {
+      id: ticketId,
+    },
+    data: {
+      status: 'PAID'
+    }
+  })
+}
+
 async function createPayment(ticket: ReturnTicket, cardData: CardData) {
   const last = String(cardData.number)
   return prisma.payment.create({
@@ -24,6 +35,7 @@ async function createPayment(ticket: ReturnTicket, cardData: CardData) {
 
 const paymentRepository = {
   findPayment,
+  changeStatus,
   createPayment,
 };
 

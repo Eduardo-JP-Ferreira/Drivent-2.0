@@ -26,13 +26,15 @@ async function getPayment(ticketId: number, userId: number): Promise<ReturnPayme
 
 async function postPayment(ticketId: number, cardData: CardData, userId: number): Promise<ReturnPayment> {
   const getEnrollmentId = await enrollmentRepository.findWithAddressByUserId(userId)
-  // if (!getEnrollmentId) throw notFoundError();
+  if (!getEnrollmentId) throw notFoundError();
 
   const ticketExist = await ticketRepository.findTicketById(ticketId)
   if (!ticketExist) throw notFoundError();
 
   if(getEnrollmentId.id !== ticketExist.enrollmentId) throw unauthorizedError();
   
+  await paymentRepository.changeStatus(ticketId)
+
   return await paymentRepository.createPayment(ticketExist, cardData);
 }
 
