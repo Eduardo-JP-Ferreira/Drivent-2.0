@@ -30,15 +30,16 @@ export async function postPayment(req: AuthenticatedRequest, res: Response) {
   const { ticketId, cardData } = req.body;
 
   try {
+    if(!ticketId || ticketId===null || ticketId===undefined || !cardData|| cardData===null || cardData===undefined){
+      return res.sendStatus(httpStatus.BAD_REQUEST)
+    }
     const payment: ReturnPayment= await paymentService.postPayment(ticketId, cardData, userId);
     return res.status(httpStatus.OK).send(payment);
   } catch (error) {
     if (error.name === 'UnauthorizedError') {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
-    else if (error.name === 'NotFoundError') {
-      return res.sendStatus(httpStatus.NOT_FOUND);
-    }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    return res.sendStatus(httpStatus.NOT_FOUND);
+    // return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }

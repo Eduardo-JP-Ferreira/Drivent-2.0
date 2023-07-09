@@ -22,8 +22,8 @@ async function changeStatus(ticketId: number) {
 }
 
 async function createPayment(ticket: ReturnTicket, cardData: CardData) {
-  const last = String(cardData.number)
-  return prisma.payment.create({
+  const last = String(cardData.number).slice(-4)
+  return await prisma.payment.create({
     data: {
       ticketId: ticket.id,
       value: ticket.TicketType.price,

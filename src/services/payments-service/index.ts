@@ -33,9 +33,11 @@ async function postPayment(ticketId: number, cardData: CardData, userId: number)
 
   if(getEnrollmentId.id !== ticketExist.enrollmentId) throw unauthorizedError();
   
+  const result: ReturnPayment = await paymentRepository.createPayment(ticketExist, cardData);
+
   await paymentRepository.changeStatus(ticketId)
 
-  return await paymentRepository.createPayment(ticketExist, cardData);
+  return result
 }
 
 const paymentService = {

@@ -10,6 +10,6 @@ paymentsRouter
   .all('/*', authenticateToken)
   .get('/health', (_req, res) => res.send('OK!'))
   .get('/', getPayment)
-  .post('/process', validateBody(paymentSchema), postPayment);
+  .post('/process',validateBody(paymentSchema), postPayment);
 
 export { paymentsRouter };
