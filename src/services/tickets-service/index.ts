@@ -28,10 +28,10 @@ async function postTicket(ticketTypeId: number, userId: number): Promise<ReturnT
   return await ticketRepository.createTicket(ticketTypeId, getEnrollmentId.id);
 }
 
-const TicketService = {
+const ticketService = {
   getTicketType,
   getTicket,
   postTicket,
 };
 
-export default TicketService;
+export default ticketService;
