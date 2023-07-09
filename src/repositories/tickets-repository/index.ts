@@ -41,9 +41,23 @@ async function findTicket(enrollmentId: number) {
   return result
 }
 
+async function createTicket(ticketTypeId: number, enrollmentId: number) {
+  return prisma.ticket.create({
+    data: {
+      enrollmentId,
+      ticketTypeId,
+      status: "RESERVED",
+    },
+    include: {
+      TicketType: true
+    }
+  });
+}
+
 const ticketRepository = {
 findTicketTypes,
 findTicket,
+createTicket,
 };
 
 export default ticketRepository;

@@ -19,13 +19,21 @@ async function getTicket(userId: number): Promise<ReturnTicket> {
   if (!result) throw notFoundError();
   
   return result;
-  
-  
+}
+
+async function postTicket(ticketTypeId: number, userId: number): Promise<ReturnTicket> {
+  const getEnrollmentId = await enrollmentRepository.findWithAddressByUserId(userId)
+  if (!getEnrollmentId) throw notFoundError();
+
+  const result = await ticketRepository.createTicket(ticketTypeId, getEnrollmentId.id);
+  if (!result) throw notFoundError();
+  return result;
 }
 
 const TicketService = {
   getTicketType,
   getTicket,
+  postTicket,
 };
 
 export default TicketService;
