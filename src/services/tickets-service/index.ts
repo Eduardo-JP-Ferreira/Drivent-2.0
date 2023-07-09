@@ -25,9 +25,7 @@ async function postTicket(ticketTypeId: number, userId: number): Promise<ReturnT
   const getEnrollmentId = await enrollmentRepository.findWithAddressByUserId(userId)
   if (!getEnrollmentId) throw notFoundError();
 
-  const result = await ticketRepository.createTicket(ticketTypeId, getEnrollmentId.id);
-  if (!result) throw notFoundError();
-  return result;
+  return await ticketRepository.createTicket(ticketTypeId, getEnrollmentId.id);
 }
 
 const TicketService = {
